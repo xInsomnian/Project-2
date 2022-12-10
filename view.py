@@ -51,9 +51,8 @@ class Ui_MainWindow(object):
         self.to_date_time.setStyleSheet("font: 8pt \"Arial\";\n"
 "color: rgb(255, 255, 255);\n"
 "background-color: rgb(85, 85, 85);")
-        self.to_date_time.setDateTime(QtCore.QDateTime(QtCore.QDate(2022, 12, 1), QtCore.QTime(23, 59, 0)))
+        self.to_date_time.setDateTime(QtCore.QDateTime(QtCore.QDate(2022, 12, 1), QtCore.QTime(0, 0, 0)))
         self.to_date_time.setDate(QtCore.QDate(2022, 12, 1))
-        self.to_date_time.setTime(QtCore.QTime(23, 59, 0))
         self.to_date_time.setMinimumDateTime(QtCore.QDateTime(QtCore.QDate(2022, 12, 1), QtCore.QTime(0, 0, 0)))
         self.to_date_time.setMinimumDate(QtCore.QDate(2022, 12, 1))
         self.to_date_time.setCalendarPopup(True)
@@ -236,7 +235,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -248,16 +247,16 @@ class Ui_MainWindow(object):
         self.button_add_task.setText(_translate("MainWindow", "Add"))
         self.label_4.setText(_translate("MainWindow", "Task Descritption"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Tab), _translate("MainWindow", "Add Task"))
-        self.label_5.setText(_translate("MainWindow", "Type Exact Task Name"))
+        self.label_5.setText(_translate("MainWindow", "Task Information"))
         self.button_get_info.setText(_translate("MainWindow", "Info"))
         self.label_7.setText(_translate("MainWindow", "Task:"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Task Info"))
         self.monthly_planner.setToolTip(_translate("MainWindow", "<html><head/><body><p><br/></p></body></html>"))
         self.monthly_planner.setWhatsThis(_translate("MainWindow", "<html><head/><body><p><br/></p></body></html>"))
         self.monthly_planner.setText(_translate("MainWindow", "Monthly Planner"))
-        self.button_task_database.setText(_translate("MainWindow", "Open Task DataBase"))
+        self.button_task_database.setText(_translate("MainWindow", "Update Task DataBase"))
         self.label_8.setText(_translate("MainWindow", "DataBase File Name:"))
-        self.label_9.setText(_translate("MainWindow", "Input a desired file name for your database if not done before "))
+        self.label_9.setText(_translate("MainWindow", "Input your file name. If not created, input a file name to creat one."))
 
 
 if __name__ == "__main__":

@@ -11,9 +11,9 @@ class Controller(QMainWindow, Ui_MainWindow):
         super().__init__(*args, **kwargs)
         self.setupUi(self)
         self.calendarWidget.selectionChanged.connect(self.date_changed)
-        self.button_add_task.clicked.connect(lambda: self.add_task())
-        self.button_get_info.clicked.connect(lambda: self.get_info())
-        self.button_task_database.clicked.connect(lambda: self.task_database())
+        self.button_add_task.clicked.connect(lambda: self.add_task()) #for button to add all task info
+        self.button_get_info.clicked.connect(lambda: self.get_info()) #to get the info on info page
+        self.button_task_database.clicked.connect(lambda: self.task_database()) #create or update your csv file
         self.task_name = []
         self.task_description = []
         self.task_from_dt = []
@@ -22,14 +22,20 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.from_date_time.setMinimumDate(self.calendarWidget.selectedDate())
         self.to_date_time.setMinimumDate(self.calendarWidget.selectedDate())
 
-
-    def date_changed(self)->None:
+    def date_changed(self) -> None:
+        '''
+        This function works when someone cliks on a specific date on the calendar
+        the from and to also switch to that date picked
+        '''
         date_picked = self.calendarWidget.selectedDate()
         self.from_date_time.setDate(date_picked)
         self.to_date_time.setDate(date_picked)
 
-
-    def add_task(self)->None:
+    def add_task(self) -> None:
+        '''
+        This function is for adding task it grabs all the information and stores it in a list
+        which is the later used
+        '''
         self.task_name.append(self.add_task_name.text())
 
         self.task_description.append(self.add_task_description.toPlainText())
@@ -41,7 +47,11 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.add_task_name.setText('')
         self.add_task_description.setText('')
 
-    def get_info(self)->None:
+    def get_info(self) -> None:
+        '''
+        This works for the second tab it trabs the task anem and then
+        displays the task discription incase one forgot
+        '''
         try:
             searching_task = self.get_info_task.text()
             index = self.task_name.index(searching_task)
@@ -50,17 +60,21 @@ class Controller(QMainWindow, Ui_MainWindow):
             warning_msg = QMessageBox()
             warning_msg.setWindowTitle('ERROR')
             warning_msg.setText('Task Does Not Exist. Try Again')
+            warning_msg.setInformativeText('Type Task as you did when you added it')
             warning_msg.setIcon(QMessageBox.Warning)
             warning_msg.setStandardButtons(QMessageBox.Retry)
             x = warning_msg.exec_()
 
-
-
-    def task_database(self)->None:
+    def task_database(self) -> None:
+        '''
+        This is the function that adds the liost into a csv file so users have all their task info
+        in one place.
+        '''
         file_name = self.database_name.text()
-        file_name_check = " " in file_name
+        file_name_check_space = " " in file_name
+        file_name_check = file_name.isalnum()
         try:
-            if file_name_check:
+            if file_name_check_space or not file_name_check:
                 raise ValueError
             else:
                 field = ('Task', 'Task Description', 'From', 'To')
@@ -73,12 +87,13 @@ class Controller(QMainWindow, Ui_MainWindow):
                 self.database_name.setText('')
 
         except ValueError:
-                error_msg = QMessageBox()
-                error_msg.setWindowTitle('ERROR')
-                error_msg.setText('Invalid file name. Try Again')
-                error_msg.setIcon(QMessageBox.Critical)
-                error_msg.setStandardButtons(QMessageBox.Retry)
-                x = error_msg.exec_()
+            error_msg = QMessageBox()
+            error_msg.setWindowTitle('ERROR')
+            error_msg.setText('Invalid file name. Try Again')
+            error_msg.setInformativeText('Use Only Letters and Numbers and No Spaces')
+            error_msg.setIcon(QMessageBox.Critical)
+            error_msg.setStandardButtons(QMessageBox.Retry)
+            x = error_msg.exec_()
 
 
 
